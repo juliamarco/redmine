@@ -51,7 +51,7 @@ class Project < ActiveRecord::Base
   has_one :repository, lambda {where(:is_default => true)}
   has_many :repositories, :dependent => :destroy
   has_many :changesets, :through => :repository
-  has_many :authors
+  has_one :authors
   has_one :wiki, :dependent => :destroy
   # Custom field for the project issues
   has_and_belongs_to_many :issue_custom_fields,
@@ -740,6 +740,7 @@ class Project < ActiveRecord::Base
   end
 
   safe_attributes 'name',
+    'authors',
     'description',
     'homepage',
     'is_public',
@@ -787,7 +788,6 @@ class Project < ActiveRecord::Base
         end
       end
     end
-
     super(attrs, user)
   end
 

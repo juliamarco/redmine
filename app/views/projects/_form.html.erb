@@ -3,7 +3,7 @@
 <div class="box tabular">
 <!--[form:project]-->
 <p><%= f.text_field :name, :required => true, :size => 60 %></p>
-
+<p><%= label(:project, l(:field_author)) %><%= collection_select(:project, :author, User.all, :id, :firstname, prompt: true) %></p>
 <p><%= f.text_area :description, :rows => 8, :class => 'wiki-edit' %></p>
 <p><%= f.text_field :identifier, :required => true, :size => 60, :disabled => @project.identifier_frozen?, :maxlength => Project::IDENTIFIER_MAX_LENGTH %>
 <% unless @project.identifier_frozen? %>
