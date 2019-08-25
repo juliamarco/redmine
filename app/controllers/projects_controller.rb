@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Redmine - project management software
 # Copyright (C) 2006-2019  Jean-Philippe Lang
 #
@@ -89,8 +87,11 @@ class ProjectsController < ApplicationController
     @trackers = Tracker.sorted.to_a
     @project = Project.new
     @project.safe_attributes = params[:project]
-
     if @project.save
+      unless params[:project][:author].empty?
+        author = User.find(author_params[:author])
+        Author.create(user: author, project: @project)
+      end
       unless User.current.admin?
         @project.add_default_member(User.current)
       end
@@ -189,6 +190,10 @@ class ProjectsController < ApplicationController
   def update
     @project.safe_attributes = params[:project]
     if @project.save
+      unless params[:project][:author].empty?
+        author = User.find(author_params[:author])
+        Author.update(user: author, project: @project)
+      end
       respond_to do |format|
         format.html {
           flash[:notice] = l(:notice_successful_update)
@@ -256,5 +261,11 @@ class ProjectsController < ApplicationController
     end
     # hide project in layout
     @project = nil
+  end
+
+  private
+
+  def author_params
+    params.require(:project).permit(:author)
   end
 end

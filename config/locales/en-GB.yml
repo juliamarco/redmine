@@ -228,7 +228,6 @@ en-GB:
   field_filename: File
   field_filesize: Size
   field_downloads: Downloads
-  field_author: Author
   field_created_on: Created
   field_updated_on: Updated
   field_field_format: Format
@@ -258,6 +257,7 @@ en-GB:
   field_homepage: Homepage
   field_is_public: Public
   field_parent: Subproject of
+  field_author: Author
   field_is_in_roadmap: Issues displayed in roadmap
   field_login: Login
   field_mail_notification: Email notifications
